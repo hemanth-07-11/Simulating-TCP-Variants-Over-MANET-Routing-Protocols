@@ -1,0 +1,115 @@
+PErformance Evaluation of Adhoc Routing Protocols using NS2
+
+Very old Project as well as a topic, but this will give an idea of how to compare multiple protocols or agents. 
+
+1 hour Project*
+
+* - you should know ns2 already
+should know how to write AWK scripts
+Should know about energy model
+Should know about wireless networks and protocols 
+
+To know the above concepts, check my Ns2 Lecture series videos in Youtube and come back to this video
+
+Youtube.com/tspradeepkumar
+
+AODV, DSDV and DSR
+AODV - Adhoc On Demand Distance Vector 
+DSDV - Destination Sequenced Distance Vector
+DSR - Dynamic Source Routing 
+
+Lcture 8 - AWK Scripts
+Average throughput
+Instant throughput
+Residual Energy
+Packet Delivery ratio
+
+To download the source codes, visit https://www.nsnam.com 
+
+Going inside the project 
+
+Step 1:
+Use the same network and same disntace, energy, etc when you compare multiple protocols
+
+Step 2: 
+Generate Scenario, You need not write the code in TCL (of course you can modify). 
+We use NSG for creating a network. Refer my lecture series on NSG (NS2 scenario Generator)
+
+$] java -jar NSG2.1.jar 
+
+As seen in the GUI, Create a network (for example with 17 nodes) and two nodes are moving 
+with a interference of 550 metres and tranmission range of 250metres.
+
+Create a network with a AODV protocol
+
+Create two copies of AODV protocol and name it as DSR.tcl and DSDV.tcl
+
+$] cp AODV.tcl DSR.tcl
+$] cp AODV.tcl DSDV.tcl
+
+
+Three files are ready now called
+AODV.tcl, DSR.tcl, DSDV.tcl
+
+and now these three files using ns filename.tcl
+
+$] ns AODV.tcl
+$] ns DSR.tcl
+$] ns DSDV.tcl
+I have the three files and got 9 files namely
+AODV.tr, DSDV.tr and DSR.tr
+AODV.nam, DSDV.nam and DSR.nam
+
+There is no energy coding, i need to implement that 
+
+DSR does not obey the queue model as specified for AODV, 
+Queue/DropTail/PriQueue  is not supported by DSR, we have to go for CMUPriQueue
+
+DSR supports this queue called CMUPriQueue, it should reflect in the tcl code.
+
+All the tcl files run successfully. now we are going to analyse the results and sometime plot the graphs too.
+
+we have already written AWK scripts for Average throughput, instant throughput , residual energy and packet delivery ratio
+
+average_throu.awk  
+instant_throu.awk  
+pdr.awk  
+resenergy.awk
+
+To run these scripts we need awk interpreter as below
+
+$] gawk -f resenergy.awk AODV.tr
+$] gawk -f resenergy.awk DSDV.tr
+$] gawk -f resenergy.awk DSR.tr 
+
+Whenvern you compare multiple protocols
+Use three different sets of nodes 
+
+Small number of nodes (10 nos)
+Medium number of nodes (20 to 30 nos)
+Huge number of nodes (upto 100) 
+
+beyond 100 nodes, ns2 suffers.
+
+in this case, we did it for 17 nodes only. You can do the rest.
+So we are coming to the conclusion
+
+Comparing protocols needs
+1. Three minimum protocols (AODV, DSR, DSDV) 
+TCP, TCPReno, TCPVegas, FullTCP
+2. number of nodes (small, medium and huge) as mentioned above, 10 nodes, 30 nodes, 100 nodes
+3. Atleast three performance metrics, in this case we have, average throghput, instant througput, residual energy and packet delivery ratio
+4. Strong knowledge on the protocols 
+5. AWK scripts to be known or atleast to be downloaded. 
+6. Design the network rather than coding the network, use scenario generators for ns2.
+
+Our project is complete!!! Stay tuned 
+Share and subscribe my youtube channel
+
+Youtube.com/tspradeepkumar
+nsnam.com
+pradeepkumar.org
+
+pradeepkumarts@gmail.com
+
+Thank you !!! More lectures to come!!!!
